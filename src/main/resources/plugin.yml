@@ -1,0 +1,8 @@
+name: FakeTAB
+version: '${version}'
+main: me.zhacked.faketab.FakeTABPlugin
+api-version: 1.19
+depend: [ ProtocolLib, TAB ]
+authors: [ zHacked ]
+libraries:
+  - org.spongepowered:configurate-yaml:4.1.2

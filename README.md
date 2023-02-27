@@ -2,7 +2,7 @@
 A simple Fake Player tab solution for cross-server Tablist in spigot.
 
 ## Estado actual del proyecto
-Esto era un proyecto que empezé para aprender sobre paquetes (siendo que para TAB no es tanto), pero debido a la falta de tiempo he sido incapaz de no poder continuarlo, ni tengo planeamiento de continuarlo hasta que este libre de verdad.
+Esto era un proyecto que empezé para aprender sobre paquetes (siendo que para tablist no es tanto), pero debido a la falta de tiempo he sido incapaz de no poder continuarlo, ni tengo planeamiento de continuarlo hasta que este libre de verdad.
 
 ## Cosas que funcionan:
 1. Entrada y salida de usuarios.

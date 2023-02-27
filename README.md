@@ -7,7 +7,7 @@ Esto era un proyecto que empezé para aprender sobre paquetes (siendo que para t
 ## Cosas que funcionan:
 1. Entrada y salida de usuarios.
 2. Registro en el tab de los usuarios falsos que se encuentran en otros spigots, guardados en un "cache".
-3. Elminación de estos cuadno se salen del server. 
+3. Elminación de estos cuando se salen del server. 
 
 ## Cosas que no funcionan:
 1. Tab Organization (Solo se añaden, da igual el orden)

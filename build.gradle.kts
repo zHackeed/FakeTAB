@@ -26,10 +26,8 @@ repositories {
     maven("https://oss.sonatype.org/content/groups/public/")
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://jitpack.io")
-    maven("https://repo.dmulloy2.net/repository/public/")
     maven("https://repo.kryptonmc.org/releases")
     maven("https://repo.minebench.de/")
-    maven("https://repo.dmulloy2.net/repository/public/")
 }
 
 dependencies {

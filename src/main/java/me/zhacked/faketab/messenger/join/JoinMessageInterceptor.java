@@ -18,7 +18,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.UUID;
 
 public class JoinMessageInterceptor implements Interceptor<JoinMessage> {
@@ -27,7 +28,7 @@ public class JoinMessageInterceptor implements Interceptor<JoinMessage> {
     @Inject private Plugin plugin;
     @Inject private Cache<UUID, FakePlayer> fakePlayerCache;
 
-    private final GsonComponentSerializer gsonComponentSerializer = GsonComponentSerializer.gson();
+    private final GsonComponentSerializer GSON_SERIALIZER = GsonComponentSerializer.gson();
 
     @Override
     public void subscribe(JoinMessage message) {
@@ -41,20 +42,20 @@ public class JoinMessageInterceptor implements Interceptor<JoinMessage> {
                 message.prefix() + message.name() + message.suffix()
         );
 
+        WrappedGameProfile profile = new WrappedGameProfile(message.uuid(), message.name());
+        PlayerInfoData playerInfoData = new PlayerInfoData(profile,
+                0,
+                EnumWrappers.NativeGameMode.SURVIVAL,
+                WrappedChatComponent.fromJson(
+                        GSON_SERIALIZER.serialize(component)
+                )
+        );
+
+        PacketContainer packet = new PacketContainer(PacketType.Play.Server.PLAYER_INFO);
+        packet.getPlayerInfoActions().write(0, EnumSet.of(EnumWrappers.PlayerInfoAction.ADD_PLAYER));
+        packet.getPlayerInfoDataLists().write(1, Collections.singletonList(playerInfoData));
 
         Bukkit.getScheduler().runTask(plugin, () -> {
-            WrappedGameProfile profile = new WrappedGameProfile(message.uuid(), message.name());
-            PlayerInfoData playerInfoData = new PlayerInfoData(profile,
-                    0,
-                    EnumWrappers.NativeGameMode.SURVIVAL,
-                    WrappedChatComponent.fromJson(
-                        gsonComponentSerializer.serialize(component)
-                    )
-            );
-
-            PacketContainer packet = new PacketContainer(PacketType.Play.Server.PLAYER_INFO);
-            packet.getPlayerInfoDataLists().write(0, List.of(playerInfoData));
-
             for (Player receiver : plugin.getServer().getOnlinePlayers()) {
                 protocolManager.sendServerPacket(receiver, packet);
             }

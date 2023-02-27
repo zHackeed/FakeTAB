@@ -5,7 +5,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import me.zhacked.faketab.connection.RedisConnection;
 import me.zhacked.faketab.file.YAMLFile;
-import me.zhacked.faketab.redis.Redis;
 import net.ibxnjadev.vmessenger.redis.RedisMessenger;
 import net.ibxnjadev.vmessenger.universal.Messenger;
 import net.ibxnjadev.vmessenger.universal.serialize.ObjectJacksonAdapter;
@@ -24,10 +23,6 @@ public class RedisModule extends AbstractModule {
         redisConnection.connect();
 
         bind(RedisConnection.class).toInstance(redisConnection);
-
-        Redis redis = new Redis(redisConnection.getJedis());
-        bind(Redis.class).toProvider(() -> redis).in(Scopes.SINGLETON);
-
         ObjectJacksonAdapter objectJacksonAdapter = new ObjectJacksonAdapter();
 
         Messenger messenger = new RedisMessenger("FakeTAB",
